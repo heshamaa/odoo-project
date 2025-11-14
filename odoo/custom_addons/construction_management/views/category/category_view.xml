@@ -1,0 +1,56 @@
+<odoo>
+
+
+    <record
+                    id="construction_category_tree_view"
+                    model="ir.ui.view"
+                    >
+        <field name="name">construction.category.tree</field>
+        <field name="model">product.category</field>
+
+
+        <field
+                        name="arch"
+                        type="xml"
+                        >
+            <tree string="Construction Categories">
+                <field name="name" />
+                <field name="parent_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record
+                    id="construction_category_form_view"
+                    model="ir.ui.view"
+                    >
+        <field name="name">construction.category.form</field>
+        <field name="model">product.category</field>
+        <field
+                        name="arch"
+                        type="xml"
+                        >
+            <form string="Construction Category">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field
+                                        name="parent_id"
+                                        string="Parent Category"
+                                        />
+
+                        <field name="description" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu Root -->
+    <menuitem
+                    id="construction_management_menu_root"
+                    name="Construction Management"
+                    />
+
+
+</odoo>

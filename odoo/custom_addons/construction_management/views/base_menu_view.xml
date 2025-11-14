@@ -1,0 +1,13 @@
+<odoo>
+
+    <menuitem id="construction_management_menu_root" 
+              name="Construction Management" />
+
+
+    <menuitem id="construction_management_menu_inventory"
+        name="CM Inventory"
+        parent="construction_management_menu_root"
+        />     
+
+    
+</odoo>

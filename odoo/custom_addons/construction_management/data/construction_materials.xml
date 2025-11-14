@@ -1,0 +1,120 @@
+<odoo>
+    <data noupdate="1">
+        <record id="construction_materials_root" model="product.category">
+            <field name="name">مواد الخرسانة</field>
+        </record>
+
+        <record id="construction_materials_reinforcement_steel" model="product.category">
+            <field name="name">حديد تسليح (Reinforcement Steel)</field>
+            <field name="parent_id" ref="construction_materials_root"/>
+        </record>
+        <record id="construction_materials_reinforcement_steel_standard" model="product.category">
+            <field name="name">حديد تسليح عادي</field>
+            <field name="parent_id" ref="construction_materials_reinforcement_steel"/>
+        </record>
+        <record id="construction_materials_reinforcement_steel_high_strength" model="product.category">
+            <field name="name">حديد عالي المقاومة</field>
+            <field name="parent_id" ref="construction_materials_reinforcement_steel"/>
+        </record>
+        <record id="construction_materials_reinforcement_steel_mesh" model="product.category">
+            <field name="name">شبك حديد (Mesh)</field>
+            <field name="parent_id" ref="construction_materials_reinforcement_steel"/>
+        </record>
+
+        <record id="construction_materials_cement" model="product.category">
+            <field name="name">أسمنت (Cement)</field>
+            <field name="parent_id" ref="construction_materials_root"/>
+        </record>
+        <record id="construction_materials_cement_portland" model="product.category">
+            <field name="name">أسمنت بورتلاندي مسلح</field>
+            <field name="parent_id" ref="construction_materials_cement"/>
+        </record>
+        <record id="construction_materials_cement_white" model="product.category">
+            <field name="name">أسمنت أبيض</field>
+            <field name="parent_id" ref="construction_materials_cement"/>
+        </record>
+        <record id="construction_materials_cement_sulfate_resistant" model="product.category">
+            <field name="name">أسمنت مقاوم للكبريتات</field>
+            <field name="parent_id" ref="construction_materials_cement"/>
+        </record>
+        <record id="construction_materials_cement_fast_setting" model="product.category">
+            <field name="name">أسمنت سريع الشك</field>
+            <field name="parent_id" ref="construction_materials_cement"/>
+        </record>
+
+        <record id="construction_materials_aggregates" model="product.category">
+            <field name="name">ركام (Aggregates)</field>
+            <field name="parent_id" ref="construction_materials_root"/>
+        </record>
+        <record id="construction_materials_aggregates_gravel" model="product.category">
+            <field name="name">زلط (Gravel)</field>
+            <field name="parent_id" ref="construction_materials_aggregates"/>
+        </record>
+        <record id="construction_materials_aggregates_gravel_small" model="product.category">
+            <field name="name">زلط 1 (صغير)</field>
+            <field name="parent_id" ref="construction_materials_aggregates_gravel"/>
+        </record>
+        <record id="construction_materials_aggregates_gravel_medium" model="product.category">
+            <field name="name">زلط 2 (متوسط)</field>
+            <field name="parent_id" ref="construction_materials_aggregates_gravel"/>
+        </record>
+        <record id="construction_materials_aggregates_gravel_large" model="product.category">
+            <field name="name">زلط 3 (كبير)</field>
+            <field name="parent_id" ref="construction_materials_aggregates_gravel"/>
+        </record>
+        <record id="construction_materials_aggregates_sand" model="product.category">
+            <field name="name">رمل (Sand)</field>
+            <field name="parent_id" ref="construction_materials_aggregates"/>
+        </record>
+        <record id="construction_materials_aggregates_sand_coarse" model="product.category">
+            <field name="name">رمل خشن</field>
+            <field name="parent_id" ref="construction_materials_aggregates_sand"/>
+        </record>
+        <record id="construction_materials_aggregates_sand_fine" model="product.category">
+            <field name="name">رمل ناعم</field>
+            <field name="parent_id" ref="construction_materials_aggregates_sand"/>
+        </record>
+        <record id="construction_materials_aggregates_sand_marine" model="product.category">
+            <field name="name">رمل بحري</field>
+            <field name="parent_id" ref="construction_materials_aggregates_sand"/>
+        </record>
+
+        <record id="construction_materials_formwork_wood" model="product.category">
+            <field name="name">الخشب للشدات (Formwork Wood)</field>
+            <field name="parent_id" ref="construction_materials_root"/>
+        </record>
+        <record id="construction_materials_formwork_wood_boards" model="product.category">
+            <field name="name">ألواح خشب</field>
+            <field name="parent_id" ref="construction_materials_formwork_wood"/>
+        </record>
+        <record id="construction_materials_formwork_wood_beams" model="product.category">
+            <field name="name">عروق خشب</field>
+            <field name="parent_id" ref="construction_materials_formwork_wood"/>
+        </record>
+        <record id="construction_materials_formwork_wood_merage" model="product.category">
+            <field name="name">ميراج (لتزانة)</field>
+            <field name="parent_id" ref="construction_materials_formwork_wood"/>
+        </record>
+
+        <record id="construction_materials_additives" model="product.category">
+            <field name="name">إضافات الخرسانة (Concrete Additives)</field>
+            <field name="parent_id" ref="construction_materials_root"/>
+        </record>
+        <record id="construction_materials_additives_mould_release" model="product.category">
+            <field name="name">مواد تشكيل</field>
+            <field name="parent_id" ref="construction_materials_additives"/>
+        </record>
+        <record id="construction_materials_additives_accelerators" model="product.category">
+            <field name="name">مواد مسرعة</field>
+            <field name="parent_id" ref="construction_materials_additives"/>
+        </record>
+        <record id="construction_materials_additives_retarers" model="product.category">
+            <field name="name">مواد مؤخرة</field>
+            <field name="parent_id" ref="construction_materials_additives"/>
+        </record>
+        <record id="construction_materials_additives_waterproof" model="product.category">
+            <field name="name">مواد مانعة للتسرب</field>
+            <field name="parent_id" ref="construction_materials_additives"/>
+        </record>
+    </data>
+</odoo>
