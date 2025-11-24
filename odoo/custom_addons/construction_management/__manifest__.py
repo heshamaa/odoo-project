@@ -16,6 +16,8 @@
         'views/base_menu_view.xml',
         'views/category/category_menu_view.xml',
         'views/product/product_menu_view.xml',
+        'views/project/construction_project_menu_view.xml',
+        'views/project/construction_project_view.xml',
         'views/product/product_view.xml',
         'views/category/category_view.xml',
         'data/all_materials.xml',
