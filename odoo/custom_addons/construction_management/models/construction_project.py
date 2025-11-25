@@ -34,13 +34,35 @@ class ConstructionProject(models.Model):
     
     
     budget = fields.Float(string='Total Budget', tracking=True)
-    warehouse_id = fields.Many2one('stock.warehouse', string='Site Warehouse')
-    
+    warehouse_id = fields.Many2one('stock.warehouse', string='Site Warehouse',readonly=True,help="The dedicated warehouse automatically created for this construction site.")
+    warehouse_name = fields.Char(
+        string='Warehouse Name',
+        related='warehouse_id.name',
+        readonly=True
+    )
 
     description = fields.Text(string='Description')
 
     @api.model
     def create(self, vals):
+        projects = super(ConstructionProject, self).create(vals)
+        for project in projects:
+            project._create_project_warehouse()
         if vals.get('code', 'New') == 'New':
             vals['code'] = self.env['ir.sequence'].next_by_code('construction.project') or 'New'
         return super(ConstructionProject, self).create(vals)
+    
+
+    def _create_project_warehouse(self):
+        if not self.warehouse_id:
+            warehouse_vals = {
+                'name': ('Site: %s') % self.name,
+                'code': self.name.replace(' ', '').upper()[:5] + '/' + str(self.id), 
+                'project_id': self.id,
+            }
+            
+            new_warehouse = self.env['stock.warehouse'].create(warehouse_vals)
+            
+            self.warehouse_id = new_warehouse.id
+                        
+        return True

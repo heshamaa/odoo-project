@@ -1,0 +1,25 @@
+<odoo>
+<record
+id="action_construction_warehouse_menu"
+model="ir.actions.act_window"
+>
+
+            <field name="name">Construction Warehouse</field>
+             <field name="res_model">construction.warehouse</field>
+              <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+
+id="construction_warehouse_menu"
+name="Construction Warehouse"
+parent="construction_management_menu_root"
+action="action_construction_warehouse_menu"
+
+
+/>
+
+
+
+
+</odoo>

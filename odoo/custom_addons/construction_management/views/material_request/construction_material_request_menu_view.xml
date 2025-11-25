@@ -1,0 +1,26 @@
+ <odoo>
+ 
+ 
+    <record id="action_material_request" model="ir.actions.act_window">
+        <field name="name">Material Requests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">construction.material.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Material Request
+            </p>
+        </field>
+    </record>
+
+              <menuitem id="menu_material_requests"
+              name="Material Requests"
+              parent="construction_management_menu_root"
+              sequence="2"/>
+
+    <menuitem id="menu_action_material_request"
+              name="All Requests"
+              parent="menu_material_requests"
+              action="action_material_request"
+              sequence="1"/>
+</odoo>
