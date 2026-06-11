@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Project Form View -->
+        <record id="view_construction_project_form" model="ir.ui.view">
+            <field name="name">construction.project.form</field>
+            <field name="model">construction.project</field>
+            <field name="arch" type="xml">
+                <form string="Construction Project">
+                    <header>
+                        <button name="action_start" string="Start Project" type="object" class="btn-primary"/>
+                        <button name="action_complete" string="Complete Project" type="object" class="btn-success"/>
+                        <button name="action_cancel" string="Cancel" type="object" class="btn-secondary"/>
+                        <field name="state" widget="statusbar" options="{'clickable': False}"/>
+                    </header>
+                    <sheet>
+                        <div class="alert alert-danger">
+                            ⚠️ This project exceeded its allocated budget by <field name="profit_margin" nolabel="1"/>%
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Project Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="client_id" required="1"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="budget" required="1"/>
+                            </group>
+                            <group>
+                                <field name="actual_cost" readonly="1"/>
+                                <field name="total_actual_cost" readonly="1"/>
+                                <field name="profit" readonly="1" widget="monetary"/>
+                                <field name="profit_margin" readonly="1" widget="float" string="Profit Margin %"/>
+                                <field name="progress" readonly="1" widget="float" string="Progress %"/>
+                                <field name="is_over_budget" readonly="1" invisible="1"/>
+                            </group>
+                        </group>
+                        <field name="description" widget="html" placeholder="Project Description"/>
+                        <notebook>
+                            <page string="Cost Details">
+                                <group>
+                                    <field name="actual_expense_cost" readonly="1" string="Materials &amp; Expenses"/>
+                                    <field name="actual_labor_cost" readonly="1" string="Labor Cost"/>
+                                    <field name="actual_subcontract_cost" readonly="1" string="Subcontract Cost"/>
+                                    <field name="equipment_cost" readonly="1" string="Equipment Cost"/>
+                                </group>
+                            </page>
+                            <page string="Stages">
+                                <field name="stage_ids">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="planned_cost"/>
+                                        <field name="actual_cost"/>
+                                        <field name="progress" widget="float"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Expenses">
+                                <field name="expense_ids">
+                                    <tree>
+                                        <field name="date"/>
+                                        <field name="name"/>
+                                        <field name="type"/>
+                                        <field name="amount" sum="Total"/>
+                                        <field name="approved" widget="boolean_toggle"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Timesheets">
+                                <field name="timesheet_ids">
+                                    <tree>
+                                        <field name="date"/>
+                                        <field name="worker_id"/>
+                                        <field name="hours"/>
+                                        <field name="cost" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Subcontracts">
+                                <field name="subcontract_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                        <field name="contract_value"/>
+                                        <field name="paid_amount"/>
+                                        <field name="remaining_amount"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Milestones">
+                                <field name="milestone_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="percentage"/>
+                                        <field name="amount" readonly="1"/>
+                                        <field name="approved" widget="boolean_toggle"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="BOQ">
+                                <field name="boq_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="total_planned"/>
+                                        <field name="total_actual"/>
+                                        <field name="total_variance"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Change Orders">
+                                <field name="change_order_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="additional_cost"/>
+                                        <field name="additional_days"/>
+                                        <field name="approved" widget="boolean_toggle"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Equipment">
+                                <field name="equipment_usage_ids">
+                                    <tree>
+                                        <field name="equipment_id"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="days"/>
+                                        <field name="total_cost"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Risks">
+                                <field name="risk_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="probability"/>
+                                        <field name="impact"/>
+                                        <field name="risk_score"/>
+                                        <field name="status"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Project List View -->
+        <record id="view_construction_project_list" model="ir.ui.view">
+            <field name="name">construction.project.list</field>
+            <field name="model">construction.project</field>
+            <field name="arch" type="xml">
+                <tree string="Construction Projects" decoration-danger="is_over_budget" decoration-info="state=='draft'" decoration-warning="state=='cancelled'">
+                    <field name="name"/>
+                    <field name="client_id"/>
+                    <field name="budget" sum="Total Budget"/>
+                    <field name="actual_cost" sum="Actual Cost"/>
+                    <field name="profit" sum="Total Profit"/>
+                    <field name="progress" widget="float" string="Progress %"/>
+                    <field name="state"/>
+                    <field name="is_over_budget" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Construction Project Search View -->
+        <record id="view_construction_project_search" model="ir.ui.view">
+            <field name="name">construction.project.search</field>
+            <field name="model">construction.project</field>
+            <field name="arch" type="xml">
+                <search string="Construction Projects">
+                    <field name="name" string="Project"/>
+                    <field name="client_id"/>
+                    <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                    <filter name="ongoing" string="Ongoing" domain="[('state', '=', 'ongoing')]"/>
+                    <filter name="completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+                    <filter name="over_budget" string="Over Budget" domain="[('is_over_budget', '=', True)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_client" string="Client" context="{'group_by': 'client_id'}"/>
+                        <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action for Construction Project -->
+        <record id="action_construction_project" model="ir.actions.act_window">
+            <field name="name">Construction Projects</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_construction_project_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new construction project
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Items -->
+        <menuitem id="menu_construction_root" name="Construction" sequence="100" web_icon="adv_construction_management,static/description/icon.png"/>
+        <menuitem id="menu_construction_projects" name="Projects" parent="menu_construction_root" action="action_construction_project" sequence="10"/>
+
+    </data>
+</odoo>

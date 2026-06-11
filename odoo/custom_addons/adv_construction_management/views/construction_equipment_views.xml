@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Equipment Form View -->
+        <record id="view_construction_equipment_form" model="ir.ui.view">
+            <field name="name">construction.equipment.form</field>
+            <field name="model">construction.equipment</field>
+            <field name="arch" type="xml">
+                <form string="Equipment">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="type"/>
+                                <field name="ownership"/>
+                            </group>
+                            <group>
+                                <field name="daily_cost"/>
+                                <field name="serial_number"/>
+                                <field name="acquisition_date"/>
+                            </group>
+                        </group>
+                        <separator string="Usage"/>
+                        <field name="usage_ids">
+                            <tree>
+                                <field name="project_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="days"/>
+                                <field name="total_cost" sum="Total"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Equipment List View -->
+        <record id="view_construction_equipment_list" model="ir.ui.view">
+            <field name="name">construction.equipment.list</field>
+            <field name="model">construction.equipment</field>
+            <field name="arch" type="xml">
+                <tree string="Equipment">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="ownership"/>
+                    <field name="daily_cost"/>
+                    <field name="serial_number"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Construction Equipment -->
+        <record id="action_construction_equipment" model="ir.actions.act_window">
+            <field name="name">Equipment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.equipment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_construction_equipment" name="Equipment" parent="menu_construction_root" action="action_construction_equipment" sequence="100"/>
+
+    </data>
+</odoo>

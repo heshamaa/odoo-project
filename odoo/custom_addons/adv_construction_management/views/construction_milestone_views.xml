@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Milestone Form View -->
+        <record id="view_construction_milestone_form" model="ir.ui.view">
+            <field name="name">construction.milestone.form</field>
+            <field name="model">construction.milestone</field>
+            <field name="arch" type="xml">
+                <form string="Milestone">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="project_id"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group>
+                                <field name="percentage"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="approved" widget="boolean_toggle"/>
+                                <field name="invoice_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Milestone List View -->
+        <record id="view_construction_milestone_list" model="ir.ui.view">
+            <field name="name">construction.milestone.list</field>
+            <field name="model">construction.milestone</field>
+            <field name="arch" type="xml">
+                <tree string="Milestones">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="percentage"/>
+                    <field name="amount" sum="Total"/>
+                    <field name="approved"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Construction Milestone -->
+        <record id="action_construction_milestone" model="ir.actions.act_window">
+            <field name="name">Milestones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.milestone</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_construction_milestones" name="Milestones" parent="menu_construction_root" action="action_construction_milestone" sequence="70"/>
+
+    </data>
+</odoo>

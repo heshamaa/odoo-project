@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Expense Form View -->
+        <record id="view_construction_expense_form" model="ir.ui.view">
+            <field name="name">construction.expense.form</field>
+            <field name="model">construction.expense</field>
+            <field name="arch" type="xml">
+                <form string="Expense">
+                    <header>
+                        <button name="write" string="Approve" type="object" class="btn-primary" context="{'approve': True}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="project_id"/>
+                                <field name="stage_id"/>
+                                <field name="type"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="amount"/>
+                                <field name="approved" widget="boolean_toggle"/>
+                                <field name="invoice_id"/>
+                            </group>
+                        </group>
+                        <field name="notes"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Expense List View -->
+        <record id="view_construction_expense_list" model="ir.ui.view">
+            <field name="name">construction.expense.list</field>
+            <field name="model">construction.expense</field>
+            <field name="arch" type="xml">
+                <tree string="Expenses" decoration-success="approved">
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="stage_id"/>
+                    <field name="type"/>
+                    <field name="amount" sum="Total"/>
+                    <field name="approved"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Construction Expense -->
+        <record id="action_construction_expense" model="ir.actions.act_window">
+            <field name="name">Expenses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.expense</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_construction_expenses" name="Expenses" parent="menu_construction_root" action="action_construction_expense" sequence="30"/>
+
+    </data>
+</odoo>

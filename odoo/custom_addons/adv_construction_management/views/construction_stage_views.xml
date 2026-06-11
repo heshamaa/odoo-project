@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Stage Form View -->
+        <record id="view_construction_stage_form" model="ir.ui.view">
+            <field name="name">construction.stage.form</field>
+            <field name="model">construction.stage</field>
+            <field name="arch" type="xml">
+                <form string="Construction Stage">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="project_id"/>
+                                <field name="planned_cost"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="progress" widget="float" string="Progress %"/>
+                                <field name="state" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="description"/>
+                        <field name="actual_cost" readonly="1" string="Actual Cost"/>
+                        <separator string="Expenses"/>
+                        <field name="expense_ids">
+                            <tree>
+                                <field name="date"/>
+                                <field name="name"/>
+                                <field name="amount" sum="Total"/>
+                                <field name="approved"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Stage List View -->
+        <record id="view_construction_stage_list" model="ir.ui.view">
+            <field name="name">construction.stage.list</field>
+            <field name="model">construction.stage</field>
+            <field name="arch" type="xml">
+                <tree string="Stages" decoration-warning="state=='delayed'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="planned_cost" sum="Planned"/>
+                    <field name="actual_cost" sum="Actual"/>
+                    <field name="progress" widget="float"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Construction Stage -->
+        <record id="action_construction_stage" model="ir.actions.act_window">
+            <field name="name">Stages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.stage</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_construction_stages" name="Stages" parent="menu_construction_root" action="action_construction_stage" sequence="20"/>
+
+    </data>
+</odoo>

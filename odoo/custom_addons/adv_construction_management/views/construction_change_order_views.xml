@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Change Order Form View -->
+        <record id="view_construction_change_order_form" model="ir.ui.view">
+            <field name="name">construction.change.order.form</field>
+            <field name="model">construction.change.order</field>
+            <field name="arch" type="xml">
+                <form string="Change Order">
+                    <header>
+                        <button name="write" string="Approve" type="object" states="draft" class="btn-primary" context="{'approved': True}"/>
+                        <field name="approved" widget="statusbar" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="project_id"/>
+                                <field name="additional_cost"/>
+                            </group>
+                            <group>
+                                <field name="additional_days"/>
+                                <field name="approval_date" readonly="1"/>
+                                <field name="approved" widget="boolean_toggle" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="description"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Change Order List View -->
+        <record id="view_construction_change_order_list" model="ir.ui.view">
+            <field name="name">construction.change.order.list</field>
+            <field name="model">construction.change.order</field>
+            <field name="arch" type="xml">
+                <tree string="Change Orders" decoration-success="approved">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="additional_cost" sum="Total"/>
+                    <field name="additional_days"/>
+                    <field name="approved" widget="boolean_toggle" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Construction Change Order -->
+        <record id="action_construction_change_order" model="ir.actions.act_window">
+            <field name="name">Change Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.change.order</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_construction_change_orders" name="Change Orders" parent="menu_construction_root" action="action_construction_change_order" sequence="90"/>
+
+    </data>
+</odoo>

@@ -11,4 +11,4 @@ source venv/bin/activate
 
 
 
-python odoo-bin -c ./odoo.conf --dev=all -u construction_management
+python3 odoo-bin -c ./odoo.conf --dev=all -u construction_management

@@ -1,5 +1,0 @@
-<odoo>
-    <record id="product_category_all" model="product.category">
-        <field name="name">All</field>
-    </record>
-</odoo>

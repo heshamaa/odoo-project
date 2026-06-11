@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Worker Form View -->
+        <record id="view_construction_worker_form" model="ir.ui.view">
+            <field name="name">construction.worker.form</field>
+            <field name="model">construction.worker</field>
+            <field name="arch" type="xml">
+                <form string="Worker">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                            </group>
+                            <group>
+                                <field name="daily_rate"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Worker List View -->
+        <record id="view_construction_worker_list" model="ir.ui.view">
+            <field name="name">construction.worker.list</field>
+            <field name="model">construction.worker</field>
+            <field name="arch" type="xml">
+                <tree string="Workers">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="daily_rate"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Construction Worker -->
+        <record id="action_construction_worker" model="ir.actions.act_window">
+            <field name="name">Workers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.worker</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_construction_workers" name="Workers" parent="menu_construction_root" action="action_construction_worker" sequence="40"/>
+
+    </data>
+</odoo>

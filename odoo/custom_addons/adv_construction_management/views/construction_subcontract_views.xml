@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Subcontract Form View -->
+        <record id="view_construction_subcontract_form" model="ir.ui.view">
+            <field name="name">construction.subcontract.form</field>
+            <field name="model">construction.subcontract</field>
+            <field name="arch" type="xml">
+                <form string="Subcontract">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="alert alert-info" attrs="{'invisible': [('remaining_amount', '=', 0)]}">
+                            Remaining to Pay: <field name="remaining_amount" nolabel="1" readonly="1"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="project_id"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="contract_value"/>
+                                <field name="retention_percentage"/>
+                                <field name="paid_amount" readonly="1"/>
+                                <field name="remaining_amount" readonly="1"/>
+                            </group>
+                        </group>
+                        <separator string="Invoices"/>
+                        <field name="invoice_ids"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Subcontract List View -->
+        <record id="view_construction_subcontract_list" model="ir.ui.view">
+            <field name="name">construction.subcontract.list</field>
+            <field name="model">construction.subcontract</field>
+            <field name="arch" type="xml">
+                <tree string="Subcontracts">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="partner_id"/>
+                    <field name="contract_value" sum="Total"/>
+                    <field name="paid_amount" sum="Paid"/>
+                    <field name="remaining_amount" sum="Remaining"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Construction Subcontract -->
+        <record id="action_construction_subcontract" model="ir.actions.act_window">
+            <field name="name">Subcontracts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.subcontract</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_construction_subcontracts" name="Subcontracts" parent="menu_construction_root" action="action_construction_subcontract" sequence="60"/>
+
+    </data>
+</odoo>

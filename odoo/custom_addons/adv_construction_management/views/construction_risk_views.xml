@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Construction Risk Form View -->
+        <record id="view_construction_risk_form" model="ir.ui.view">
+            <field name="name">construction.risk.form</field>
+            <field name="model">construction.risk</field>
+            <field name="arch" type="xml">
+                <form string="Risk">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="project_id"/>
+                                <field name="owner_id"/>
+                            </group>
+                            <group>
+                                <field name="probability"/>
+                                <field name="impact"/>
+                                <field name="risk_score" readonly="1" widget="float"/>
+                                <field name="status"/>
+                            </group>
+                        </group>
+                        <field name="description"/>
+                        <field name="mitigation_plan"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Construction Risk List View -->
+        <record id="view_construction_risk_list" model="ir.ui.view">
+            <field name="name">construction.risk.list</field>
+            <field name="model">construction.risk</field>
+            <field name="arch" type="xml">
+                <tree string="Risks" decoration-danger="risk_score&gt;=0.25" decoration-warning="risk_score==0.0625">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="probability"/>
+                    <field name="impact"/>
+                    <field name="risk_score"/>
+                    <field name="status"/>
+                    <field name="owner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Construction Risk -->
+        <record id="action_construction_risk" model="ir.actions.act_window">
+            <field name="name">Risks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.risk</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_construction_risks" name="Risks" parent="menu_construction_root" action="action_construction_risk" sequence="110"/>
+
+    </data>
+</odoo>
