@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_line_discount" model="ir.ui.view">
+        <field name="name">purchase.order.line.discount</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[hasclass('oe_subtotal_footer')]" position="before">
+                <div class="float-end d-flex gap-1 mb-2">
+                    <button
+                        string="Discount"
+                        name="action_open_discount_wizard"
+                        type="object"
+                        class="btn btn-secondary"
+                        invisible="state in ('purchase', 'done', 'cancel')"
+                    />
+                    <button
+                        string="Discount"
+                        name="action_open_discount_wizard"
+                        type="object"
+                        class="btn btn-secondary"
+                        disabled="1"
+                        invisible="state not in ('purchase', 'done', 'cancel')"
+                    />
+                </div>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='discount']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_subtotal']" position="before">
+                <field name="price_unit_before_discount" string="Unit Price"/>
+                <field name="discount_ids"
+                       widget="many2many_tags"
+                       string="Discounts"
+                       options="{'no_create': False, 'no_create_edit': False, 'no_open': False}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/form//field[@name='price_unit']" position="after">
+                <field name="price_unit_before_discount" string="Unit Price"/>
+                <field name="discount_ids"
+                       widget="many2many_tags"
+                       string="Discounts"
+                       options="{'no_create': False, 'no_create_edit': False, 'no_open': False}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/form//field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
